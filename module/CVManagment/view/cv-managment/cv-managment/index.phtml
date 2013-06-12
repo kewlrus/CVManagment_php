@@ -1,0 +1,11 @@
+<div id="sticky-notes">
+    <?php foreach($cvdata as $cvmanagment):?>
+    <div class="sticky-note">
+        <textarea id="stickynote-<?php echo $cvmanagment->getId() ?>"><?php echo $cvmanagment->getId() ?></textarea>
+        <a href="#" id="remove-<?php echo $cvmanagment->getId(); ?>"class="delete-sticky">X</a>
+    </div>
+    <?php endforeach; ?>
+    <div id="create">+</div>
+
+</div>
+<div class="clear-both"></div>
