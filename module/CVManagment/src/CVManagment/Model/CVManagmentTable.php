@@ -28,19 +28,13 @@ class CVManagmentTable extends AbstractTableGateway {
 		$statement = $sql->prepareStatementForSqlObject($SelectDistEmp);
 		$resultSetDistinct = $statement->execute();
 
-				
-		$entities = array();
-		
-		//	print_r ($resultSetDistinct);
-		
+		$entities = array();		
 		foreach ($resultSetDistinct as $rowDistinct) 
 		{				
 			$where_clause = 'EmployerID = ' . $rowDistinct['eid'];
-			//echo $where_clause."</br>";
-			
+
 			$resultSet = $this->select($where_clause, function (Select $select) {
-						$select->order('DATE_FROM ASC');
-						
+						$select->order('DATE_FROM ASC');	
 			});	
 			
 			$SelectEmployer = new Select;
@@ -58,7 +52,6 @@ class CVManagmentTable extends AbstractTableGateway {
 			}
 				
 			foreach ($resultSet as $row) {
-				//echo $row->EmployerID.' '.$row->id."</br>";
 				$entity = new Entity\CVManagment();
 				$entity->setId($row->id)
 						->setEmployerId($row->EmployerID)
@@ -71,19 +64,9 @@ class CVManagmentTable extends AbstractTableGateway {
 				$entities[$rowDistinct['eid']][] = $entity;
 			}
 		}
-		//print "<pre>";
-	//	print_r($entities);
-		//print "</pre>";
         return $entities;
 		
-		
-		
-       /* $resultSet = $this->select(function (Select $select) {
-					$select->quantifier('DISTINCT `EmployerID`');
-                    $select->order('DATE_FROM ASC');
-                });*/
     }
-	
 	
     /**
      * Select
