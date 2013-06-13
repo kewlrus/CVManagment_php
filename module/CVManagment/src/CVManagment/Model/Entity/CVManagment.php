@@ -9,6 +9,8 @@ class CVManagment {
     protected $_date_to;
     protected $_description;
     protected $_technologies;
+	
+    protected $_employer_name;
 
     public function __construct(array $options = null) {
         if (is_array($options)) {
@@ -94,6 +96,15 @@ class CVManagment {
 
     public function setTechnologies($tech) {
         $this->_technologies = $tech;
+        return $this;
+    }
+	
+    public function getEmployerName() {
+        return $this->_employer_name;
+    }
+
+    public function setEmployerName($name) {
+        $this->_employer_name = $name;
         return $this;
     }
 }

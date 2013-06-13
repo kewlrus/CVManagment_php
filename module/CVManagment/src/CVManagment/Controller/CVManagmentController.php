@@ -9,7 +9,7 @@ class CVManagmentController extends AbstractActionController {
 	
     public function indexAction() 
 	{
-        return new ViewModel(array(
+		return new ViewModel(array(
 			'cvdata' => $this->getCVManagmentTable()->fetchAll(),
 		));
     }

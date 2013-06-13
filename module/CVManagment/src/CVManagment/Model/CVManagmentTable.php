@@ -4,6 +4,8 @@ namespace CVManagment\Model;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Sql;
+use Zend\Db\Sql\Expression;
 
 class CVManagmentTable extends AbstractTableGateway {
 
@@ -14,22 +16,98 @@ class CVManagmentTable extends AbstractTableGateway {
     }
 	
     public function fetchAll() {
-        $resultSet = $this->select(function (Select $select) {
-                    $select->order('DATE_FROM ASC');
-                });
-        $entities = array();
-        foreach ($resultSet as $row) {
-            $entity = new Entity\CVManagment();
-            $entity->setId($row->id)
-                    ->setEmployerId($row->EmployerID)
-                    ->setDateFrom($row->DATE_FROM)
-                    ->setDateTo($row->DATE_TO)
-                    ->setDescription($row->DESCRIPTION)
-                    ->setTechnologies($row->TECHNOLOGIES);
-					
-            $entities[] = $entity;
-        }
+		$SelectDistEmp = new Select;
+		$sql = new Sql($this->adapter);
+		
+        $SelectDistEmp->from($this->table);
+		$SelectDistEmp->order('DATE_FROM DESC');
+		$SelectDistEmp->columns(array(
+			'eid' => new Expression('DISTINCT EmployerID')
+		));
+			  
+		$statement = $sql->prepareStatementForSqlObject($SelectDistEmp);
+		$resultSetDistinct = $statement->execute();
+
+				
+		$entities = array();
+		
+		//	print_r ($resultSetDistinct);
+		
+		foreach ($resultSetDistinct as $rowDistinct) 
+		{				
+			$where_clause = 'EmployerID = ' . $rowDistinct['eid'];
+			//echo $where_clause."</br>";
+			
+			$resultSet = $this->select($where_clause, function (Select $select) {
+						$select->order('DATE_FROM ASC');
+						
+			});	
+			
+			$SelectEmployer = new Select;
+		
+			$SelectEmployer->from('Employers');
+			$SelectEmployer->where('id = ' . $rowDistinct['eid']);
+			
+			$statementEmployer = $sql->prepareStatementForSqlObject($SelectEmployer);
+			$resultEmployer = $statementEmployer->execute();
+			
+			$EMP_NAME = '';
+			foreach ($resultEmployer as $rowEmployer) 
+			{				
+				$EMP_NAME = $rowEmployer['NAME'];
+			}
+				
+			foreach ($resultSet as $row) {
+				//echo $row->EmployerID.' '.$row->id."</br>";
+				$entity = new Entity\CVManagment();
+				$entity->setId($row->id)
+						->setEmployerId($row->EmployerID)
+						->setDateFrom($row->DATE_FROM)
+						->setDateTo($row->DATE_TO)
+						->setDescription($row->DESCRIPTION)
+						->setTechnologies($row->TECHNOLOGIES)
+						->setEmployerName($EMP_NAME);
+						
+				$entities[$rowDistinct['eid']][] = $entity;
+			}
+		}
+		//print "<pre>";
+	//	print_r($entities);
+		//print "</pre>";
         return $entities;
+		
+		
+		
+       /* $resultSet = $this->select(function (Select $select) {
+					$select->quantifier('DISTINCT `EmployerID`');
+                    $select->order('DATE_FROM ASC');
+                });*/
+    }
+	
+	
+    /**
+     * Select
+     *
+     * @param Where|\Closure|string|array $where
+     * @return ResultSet
+     */
+    public function select($where = '', $closure = null)
+    {
+        if (!$this->isInitialized) {
+            $this->initialize();
+        }
+
+        $select = $this->sql->select();
+
+        if ($closure instanceof \Closure) {
+            $closure($select);
+        } 
+		
+		if ($where !== '') {
+            $select->where($where);
+        }
+
+        return $this->selectWith($select);
     }
 	
     public function getCVData($id) 
