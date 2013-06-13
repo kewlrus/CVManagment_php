@@ -1,17 +1,26 @@
 <div id="sticky-notes">
-    <?php 
-	
-	foreach($cvdata as $cvmanagment):?>
-		
-		<?php foreach($cvmanagment as $cv):?>
-	
-    <div class="sticky-note">
-        <textarea id="stickynote-<?php echo $cv->getId() ?>"><?php echo $cv->getEmployerName() ?></textarea>
-        <a href="#" id="remove-<?php echo $cv->getId(); ?>"class="delete-sticky">X</a>
-    </div>
-	
-		<hr>
+	<b style='color:blue'>JOB EXPERIENCE:</b></br>
+	<?php foreach($cvdata as $cvmanagment):?>
+		<?php
+		$first = true;
+		foreach($cvmanagment as $cv):?>
+			<b><?php if ($first) echo $cv->getEmployerName(); ?></b>
+			
+			<?php if ($first):?>
+				<div id = "jobs" style="margin-left:20px">
+				<?php $first = false; ?>
+			<?php endif;?>
+			
+			</br>
+			<b><?php echo $cv->getDateFrom() . " - " . ($cv->getDateTo() !== '' ? $cv->getDateTo() : 'present'); ?></b>
+			<div class="c-v" style="margin-left:20px">
+			
+				<textarea class='cv' id="cv-<?php echo $cv->getId() ?>"><?php echo $cv->getDescription() . '&#13;&#10;' . $cv->getTechnologies(); ?></textarea>
+				<a href="#" id="remove-<?php echo $cv->getId(); ?>"class="delete-cv">X</a>
+			</div>
+			<hr>
 		<?php endforeach; ?>
+		</div>
     <?php endforeach; ?>
     <div id="create">+</div>
 
