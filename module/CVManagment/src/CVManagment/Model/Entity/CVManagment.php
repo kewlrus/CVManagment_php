@@ -61,6 +61,41 @@ class CVManagment {
         return $this;
     }
 	
+    public function getDateFrom() {
+        return $this->_date_from;
+    }
+
+    public function setDateFrom($df) {
+        $this->_date_from = $df;
+        return $this;
+    }
+	
+    public function getDateTo() {
+        return $this->_date_to;
+    }
+
+    public function setDateTo($dt) {
+        $this->_date_to = $dt;
+        return $this;
+    }
+	
+    public function getDescription() {
+        return $this->_description;
+    }
+
+    public function setDescription($descr) {
+        $this->_description = $descr;
+        return $this;
+    }
+	
+    public function getTechnologies() {
+        return $this->_technologies;
+    }
+
+    public function setTechnologies($tech) {
+        $this->_technologies = $tech;
+        return $this;
+    }
 }
 
 ?>
