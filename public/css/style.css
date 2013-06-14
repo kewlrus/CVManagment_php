@@ -50,3 +50,13 @@ textarea.employername
 	width: 30%;
 	height: 20px;
 }
+
+a.delete-cv
+{
+	cursor: pointer;
+}
+
+a.save-cv
+{
+	cursor: pointer;
+}

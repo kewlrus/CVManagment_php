@@ -15,8 +15,8 @@
 				
 				<textarea class='cv-descr' id="cv-<?php echo $cv->getId() ?>"><?php echo $cv->getDescription(); ?></textarea>
 				<textarea class='cv-tech' id="cv-<?php echo $cv->getId() ?>"><?php echo $cv->getTechnologies(); ?></textarea>
-				<a href="#" id="remove-<?php echo $cv->getId(); ?>"class="delete-cv">Delete This Experience</a>&nbsp;|&nbsp
-				<a href="#" id="<?php echo $cv->getId(); ?>" class="save-cv">Save This Experience</a>
+				<a id="remove-<?php echo $cv->getId(); ?>"class="delete-cv">Delete This Experience</a>&nbsp;|&nbsp
+				<a id="<?php echo $cv->getId(); ?>" class="save-cv">Save This Experience</a>
 				<hr>
 			</div>
 		<?php endforeach; ?>
