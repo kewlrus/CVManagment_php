@@ -34,7 +34,7 @@ class CVManagmentTable extends AbstractTableGateway {
 			$where_clause = 'EmployerID = ' . $rowDistinct['eid'];
 
 			$resultSet = $this->select($where_clause, function (Select $select) {
-						$select->order('DATE_FROM ASC');	
+						$select->order('DATE_FROM DESC');	
 			});	
 			
 			$SelectEmployer = new Select;
@@ -50,6 +50,12 @@ class CVManagmentTable extends AbstractTableGateway {
 			{				
 				$EMP_NAME = $rowEmployer['NAME'];
 			}
+			
+			$EMPLOYER_ARR = array();
+			$EMPLOYER_ARR['ID'] = $rowDistinct['eid'];
+			$EMPLOYER_ARR['NAME'] = $EMP_NAME;
+			
+			$entities['EMPLOYERS'][] = $EMPLOYER_ARR;
 				
 			foreach ($resultSet as $row) {
 				$entity = new Entity\CVManagment();
@@ -61,7 +67,7 @@ class CVManagmentTable extends AbstractTableGateway {
 						->setTechnologies($row->TECHNOLOGIES)
 						->setEmployerName($EMP_NAME);
 						
-				$entities[$rowDistinct['eid']][] = $entity;
+				$entities['CVDATA'][$rowDistinct['eid']][] = $entity;
 			}
 		}
         return $entities;

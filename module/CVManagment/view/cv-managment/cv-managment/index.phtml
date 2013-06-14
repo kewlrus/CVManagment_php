@@ -1,28 +1,25 @@
-<div id="sticky-notes">
-	<b style='color:blue'>JOB EXPERIENCE:</b></br>
-	<?php foreach($cvdata as $cvmanagment):?>
-		<?php
-		$first = true;
-		foreach($cvmanagment as $cv):?>
-			<b><?php if ($first) echo $cv->getEmployerName(); ?></b>
-			
-			<?php if ($first):?>
-				<div id = "jobs" style="margin-left:20px">
-				<?php $first = false; ?>
-			<?php endif;?>
-			
-			</br>
-			<b><?php echo $cv->getDateFrom() . " - " . ($cv->getDateTo() !== '' ? $cv->getDateTo() : 'present'); ?></b>
-			<div class="c-v" style="margin-left:20px">
-			
-				<textarea class='cv' id="cv-<?php echo $cv->getId() ?>"><?php echo $cv->getDescription() . '&#13;&#10;' . $cv->getTechnologies(); ?></textarea>
-				<a href="#" id="remove-<?php echo $cv->getId(); ?>"class="delete-cv">X</a>
+<div id="cvmanagment">
+	<b style='color:blue'>JOB EXPERIENCE:</b></br></br>
+	<?php foreach($cvdata['CVDATA'] as $cvmanagment):?>
+		<?php foreach($cvmanagment as $cv):?>
+			<div id = "jobs" style="margin-left:20px">		
+				<select id="sel-<?php echo $cv->getId() ?>" size='1'>
+				<?php foreach($cvdata['EMPLOYERS'] as $EMPLOYER):?>
+				  <option id='<?php echo $EMPLOYER['ID'];?>'  
+				  <?php if ($cv->getEmployerId() == $EMPLOYER['ID']) echo 'selected'; ?>><?php echo $EMPLOYER['NAME']; ?></option>
+				<?php endforeach; ?>
+				</select>
+		
+				</br>
+				<input type="date" name="calendar" id='calendarfrom-<?php echo $cv->getId() ?>' value="<?php echo $cv->getDateFrom()?>">&nbsp;&nbsp;&nbsp;till&nbsp;&nbsp;&nbsp;<input type="date" name="calendar" id='calendarto-<?php echo $cv->getId() ?>' value="<?php echo $cv->getDateTo()?>">
+				
+				<textarea class='cv-descr' id="cv-<?php echo $cv->getId() ?>"><?php echo $cv->getDescription(); ?></textarea>
+				<textarea class='cv-tech' id="cv-<?php echo $cv->getId() ?>"><?php echo $cv->getTechnologies(); ?></textarea>
+				<a href="#" id="remove-<?php echo $cv->getId(); ?>"class="delete-cv">Delete This Experience</a>&nbsp;|&nbsp
+				<a href="#" id="<?php echo $cv->getId(); ?>" class="save-cv">Save This Experience</a>
+				<hr>
 			</div>
-			<hr>
 		<?php endforeach; ?>
-		</div>
     <?php endforeach; ?>
-    <div id="create">+</div>
-
 </div>
 <div class="clear-both"></div>

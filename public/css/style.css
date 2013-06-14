@@ -35,8 +35,18 @@ div.container a.brand {
     margin-left: 0;
     padding: 8px 20px 12px 40px;
 }
-textarea.cv
+textarea.cv-descr
 {
 	width: 100%;
 	height: 100px;
+}
+textarea.cv-tech
+{
+	width: 100%;
+	height: 50px;
+}
+textarea.employername
+{
+	width: 30%;
+	height: 20px;
 }
