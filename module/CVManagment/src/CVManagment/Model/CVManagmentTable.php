@@ -15,14 +15,14 @@ class CVManagmentTable extends AbstractTableGateway {
         $this->adapter = $adapter;
     }
 	
-    public function fetchAll() {
+    public function fetchAll($user_id = 1) {
 		$SelectDistEmp = new Select;
 		$sql = new Sql($this->adapter);
 		
         $SelectDistEmp->from($this->table);
 		$SelectDistEmp->order('DATE_FROM DESC');
 		$SelectDistEmp->columns(array(
-			'eid' => new Expression('DISTINCT EmployerID')
+			'eid' => new Expression('DISTINCT EmployerID'),
 		));
 			  
 		$statement = $sql->prepareStatementForSqlObject($SelectDistEmp);
@@ -37,6 +37,7 @@ class CVManagmentTable extends AbstractTableGateway {
 						$select->order('DATE_FROM DESC');	
 			});	
 			
+			// Find employer name
 			$SelectEmployer = new Select;
 		
 			$SelectEmployer->from('Employers');
@@ -56,6 +57,30 @@ class CVManagmentTable extends AbstractTableGateway {
 			$EMPLOYER_ARR['NAME'] = $EMP_NAME;
 			
 			$entities['EMPLOYERS'][] = $EMPLOYER_ARR;
+			
+			//Find User name
+			$SelectUser = new Select;
+		
+			$SelectUser->from('Users');
+			
+			$statementUser = $sql->prepareStatementForSqlObject($SelectUser);
+			$resultUser = $statementUser->execute();
+			
+			$USERS_ARR = array();
+			foreach ($resultUser as $rowUser) 
+			{				
+				$USER_ARR = array();
+				$USER_ARR['ID'] = $rowUser['ID'];
+				$USER_ARR['NAME'] = $rowUser['NAME'];
+				$USER_ARR['EMAIL'] = $rowUser['EMAIL'];
+				$USER_ARR['SKYPE'] = $rowUser['SKYPE'];
+				$USER_ARR['PHONE'] = $rowUser['PHONE'];
+				$USER_ARR['URL'] = $rowUser['URL'];
+				$USER_ARR['SELECTED'] = $user_id == $rowUser['ID'] ? true : false;
+				$USERS_ARR[] = $USER_ARR;
+			}
+						
+			$entities['USERS'] = $USERS_ARR;
 				
 			foreach ($resultSet as $row) {
 				$entity = new Entity\CVManagment();
