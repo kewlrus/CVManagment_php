@@ -19,7 +19,9 @@ class CVManagmentController extends AbstractActionController {
         $response = $this->getResponse();
         if ($request->isPost()) {
             $new_cv = new \CVManagment\Model\Entity\CVManagment();
+			$new_cv->setUserId(1); 
 			$new_cv->setEmployerId(1);
+			print_r($new_cv);
             if (!$cv_id = $this->getCVManagmentTable()->saveCVData($new_cv))
                 $response->setContent(\Zend\Json\Json::encode(array('response' => false)));
             else 

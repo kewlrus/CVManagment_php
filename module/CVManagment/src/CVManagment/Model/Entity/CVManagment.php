@@ -5,6 +5,7 @@ class CVManagment {
 
     protected $_id;
     protected $_employerid;
+    protected $_user_id;
     protected $_date_from;
     protected $_date_to;
     protected $_description;
@@ -60,6 +61,15 @@ class CVManagment {
 
     public function setEmployerId($id) {
         $this->_employerid = $id;
+        return $this;
+    }
+	
+    public function getUserId() {
+        return $this->_user_id;
+    }
+
+    public function setUserId($id) {
+        $this->_user_id = $id;
         return $this;
     }
 	

@@ -146,6 +146,7 @@ class CVManagmentTable extends AbstractTableGateway {
         $data = array(
 			'id' => $CVData->getId(),
 			'EmployerId' => $CVData->getEmployerId(),
+			'user_id' => $CVData->getUserId(),
 			'DATE_FROM' => $CVData->getDateFrom(),
 			'DATE_TO' => $CVData->getDateTo(),
 			'DESCRIPTION' => $CVData->getDescription(),
