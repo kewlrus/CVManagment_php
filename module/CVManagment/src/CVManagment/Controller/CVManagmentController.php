@@ -18,7 +18,6 @@ class CVManagmentController extends AbstractActionController {
 		$request = $this->getRequest();
         $response = $this->getResponse();
         if ($request->isPost()) {
-		echo "AAAAAAAAAAAAs";
             $new_cv = new \CVManagment\Model\Entity\CVManagment();
 			$new_cv->setEmployerId(1);
             if (!$cv_id = $this->getCVManagmentTable()->saveCVData($new_cv))
