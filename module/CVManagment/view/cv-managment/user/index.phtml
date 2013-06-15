@@ -1,0 +1,20 @@
+<div id="cvmanagment">
+	<b style='color:blue'>User:</b></br></br>
+	<div id = "users" style="margin-left:20px">		
+	<select id="seluser" size='1'>
+	<?php foreach($userdata as $user):?>
+		<option id='<?php echo $user->getId();?>'><?php echo $user->getName(); ?></option> 
+    <?php endforeach; ?>
+	</select>
+	
+	</br>
+	<b>
+		<?php if ($user->getEmail()) echo $user->getEmail();?>
+		<?php if ($user->getEmail()) echo ' | '; if ($user->getSkype())  echo $user->getSkype();?>
+		<?php if ($user->getSkype()) echo ' | '; if ($user->getPhone())  echo $user->getPhone();?>
+		<?php if ($user->getPhone()) echo ' | '; if ($user->getUrl())  echo $user->getUrl();?>
+	</b>
+	
+	</div>
+</div>
+<div class="clear-both"></div>
