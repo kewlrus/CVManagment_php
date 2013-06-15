@@ -1,8 +1,26 @@
 <div id="cvmanagment">
+	<b style='color:blue'>User:</b></br></br>
+	<div id = "users" style="margin-left:20px">		
+	<select id="seluser" size='1'>
+	<?php foreach($userdata as $user):?>
+		<option id='<?php echo $user->getId();?>'><?php echo $user->getName(); ?></option> 
+    <?php endforeach; ?>
+	</select>
+	
+	</br>
+	<b>
+		<?php if ($userdata[0]->getEmail()) echo $userdata[0]->getEmail();?>
+		<?php if ($userdata[0]->getEmail()) echo ' | '; if ($userdata[0]->getSkype())  echo $userdata[0]->getSkype();?>
+		<?php if ($userdata[0]->getSkype()) echo ' | '; if ($userdata[0]->getPhone())  echo $userdata[0]->getPhone();?>
+		<?php if ($userdata[0]->getPhone()) echo ' | '; if ($userdata[0]->getUrl())  echo $userdata[0]->getUrl();?>
+	</b>
+	
+	</div>
+	</br>
 <?php
-/*echo "<pre>";
-print_r($cvdata);
-echo "</pre>";*/
+//echo "<pre>";
+//print_r($userdata);
+//echo "</pre>";
 ?>
 	<b style='color:blue'>JOB EXPERIENCE:</b></br></br>
 	<?php foreach($cvdata['CVDATA'] as $cvmanagment):?>

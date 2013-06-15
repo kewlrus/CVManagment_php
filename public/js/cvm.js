@@ -2,7 +2,12 @@ jQuery(function($) {
     $("#create").on('click', function(event){
         event.preventDefault();
         var $cv = $(this);
-        $.post("cvmanagment/add", null,
+		
+		user_id = $("#seluser" + " option:selected").attr('id');
+		
+        $.post("cvmanagment/add", {
+            userid: user_id
+        },
             function(data){
                 if(data.response == true){
 					alert(data.new_cv_id);

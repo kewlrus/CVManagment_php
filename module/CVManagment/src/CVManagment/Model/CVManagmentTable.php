@@ -133,6 +133,7 @@ class CVManagmentTable extends AbstractTableGateway {
         $CVData = new Entity\CVManagment(array(
 					'id' => $row->id,
                     'EmployerId' => $row->EmployerID,
+					'user_id' => $row->user_id,
                     'DATE_FROM' => $row->DATE_FROM,
                     'DATE_TO' => $row->DATE_TO,
                     'DESCRIPTION' => $row->DESCRIPTION,

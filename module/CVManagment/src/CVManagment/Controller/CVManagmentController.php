@@ -6,11 +6,13 @@ use Zend\View\Model\ViewModel;
 
 class CVManagmentController extends AbstractActionController {
     protected $_CVManagmentTable;
+    protected $_UserTable;
 	
     public function indexAction() 
 	{
 		return new ViewModel(array(
 			'cvdata' => $this->getCVManagmentTable()->fetchAll(),
+			'userdata' => $this->getUserTable()->fetchAll(),
 		));
     }
 
@@ -19,7 +21,11 @@ class CVManagmentController extends AbstractActionController {
         $response = $this->getResponse();
         if ($request->isPost()) {
             $new_cv = new \CVManagment\Model\Entity\CVManagment();
-			$new_cv->setUserId(1); 
+			
+            $post_data = $request->getPost();
+			$user_id = $post_data['userid'];
+			
+			$new_cv->setUserId($user_id); 
 			$new_cv->setEmployerId(1);
 			print_r($new_cv);
             if (!$cv_id = $this->getCVManagmentTable()->saveCVData($new_cv))
@@ -88,6 +94,14 @@ class CVManagmentController extends AbstractActionController {
         }
         return $this->_CVManagmentTable;
     }
-
+	
+	public function getUserTable() 
+	{
+        if (!$this->_UserTable) {
+            $sm = $this->getServiceLocator();
+            $this->_UserTable = $sm->get('CVManagment\Model\UserTable');
+        }
+        return $this->_UserTable;
+    }
 }
 ?>

@@ -2,6 +2,7 @@
 namespace CVManagment;
 
 use CVManagment\Model\CVManagmentTable;
+use CVManagment\Model\UserTable;
 
 class Module
 {
@@ -31,6 +32,11 @@ class Module
                 'CVManagment\Model\CVManagmentTable' => function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table = new CVManagmentTable($dbAdapter);
+                    return $table;
+                },
+                'CVManagment\Model\UserTable' => function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new UserTable($dbAdapter);
                     return $table;
                 },
             ),
