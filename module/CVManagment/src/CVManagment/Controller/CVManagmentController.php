@@ -10,9 +10,16 @@ class CVManagmentController extends AbstractActionController {
 	
     public function indexAction() 
 	{
+        $selectedUserId = (int) $this->params()->fromRoute('id', 0);
+		//echo 'asdasd222: '.$selectedUserId;
+		
+		//if ($selectedUserId == 0)
+		//	$selectedUserId = 1;
+			
 		return new ViewModel(array(
-			'cvdata' => $this->getCVManagmentTable()->fetchAll(),
+			'cvdata' => $this->getCVManagmentTable()->fetchAll($selectedUserId),
 			'userdata' => $this->getUserTable()->fetchAll(),
+			'selecteduserid' => $selectedUserId
 		));
     }
 
@@ -63,6 +70,7 @@ class CVManagmentController extends AbstractActionController {
             $post_data = $request->getPost();
 			
 			$cv_id = $post_data['id'];
+			$user_id = $post_data['userid'];
             $employerid = $post_data['employerid'];
             $description = $post_data['description'];
             $technologies = $post_data['technologies'];
@@ -72,6 +80,7 @@ class CVManagmentController extends AbstractActionController {
             $cv = $this->getCVManagmentTable()->getCVData($cv_id);
 			$cv->setId($cv_id)
 					->setEmployerId($employerid)
+					->setUserId($user_id)
 					->setDateFrom($datafrom)
 					->setDateTo($datato)
 					->setDescription($description)

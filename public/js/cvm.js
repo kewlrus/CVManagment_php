@@ -1,11 +1,17 @@
 jQuery(function($) {
+
+	$('#seluser').change(function() {
+		user_id = $("#seluser" + " option:selected").attr('id');
+		window.location.href = "/cvmanagment/index/" + user_id;
+	});
+
     $("#create").on('click', function(event){
         event.preventDefault();
         var $cv = $(this);
 		
 		user_id = $("#seluser" + " option:selected").attr('id');
 		
-        $.post("cvmanagment/add", {
+        $.post("/cvmanagment/add", {
             userid: user_id
         },
             function(data){
@@ -26,7 +32,7 @@ jQuery(function($) {
         var remove_id = $(this).attr('id');
         remove_id = remove_id.replace("remove-","");
 
-        $.post("cvmanagment/remove", {
+        $.post("/cvmanagment/remove", {
             id: remove_id
         },
         function(data){
@@ -48,9 +54,11 @@ jQuery(function($) {
 		employer_id = $("#sel-" + update_id + " option:selected").attr('id');
 		data_from = $("#calendarfrom-" + update_id).val();
 		data_to = $("#calendarto-" + update_id).val();
+		user_id = $("#seluser" + " option:selected").attr('id');
 
-        $.post("cvmanagment/update", {
+        $.post("/cvmanagment/update", {
             id: update_id,
+            userid: user_id,
             employerid: employer_id,
             description: description_content,
             technologies: technologies_content,
