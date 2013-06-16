@@ -17,9 +17,11 @@ return array(
                     'defaults' => array(
                         'controller' => 'CVManagment\Controller\CVManagment',
                         'action'     => 'index',
+						'id'     => '1',
                     ),
                 ),
             ), 
+			
 			'user' => array(
                 'type'    => 'Literal',
                 'options' => array(
@@ -33,12 +35,14 @@ return array(
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/[:controller[/:action]]',
+                            'route'    => '/[:controller[/:action][/:id]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+								'id'     => '[0-9]+',
                             ),
                             'defaults' => array(
+								'id'     => '1',
                             ),
                         ),
                     ),
@@ -63,12 +67,14 @@ return array(
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/[:controller[/:action]]',
+                            'route'    => '/[:controller[/:action][/:userid]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+								'userid'     => '[0-9]+',
                             ),
                             'defaults' => array(
+								'userid'     => '1',
                             ),
                         ),
                     ),
