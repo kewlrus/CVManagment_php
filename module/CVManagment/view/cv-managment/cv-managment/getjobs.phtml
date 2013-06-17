@@ -1,0 +1,46 @@
+<?php 
+//echo "<pre>";
+//print_r($cvdata);
+//echo "</pre>";
+if (array_key_exists('CVDATA', $cvdata)):?>
+	<?php foreach($cvdata['CVDATA'] as $cvmanagment):?>
+		<?php foreach($cvmanagment as $cv):?>
+			<?php foreach($cvdata['EMPLOYERS'] as $id => $EMPLOYER):?>
+			  <?php if ($cv->getEmployerId() == $EMPLOYER['ID']) $EmployerID = $id; ?>
+			<?php endforeach; ?>	
+			<div id = 'jobcontainer'>
+				<table style="width:100%"> 
+				<tr>
+				<td style="width:50%;">
+				<a id="showjob<?php echo $cv->getId(); ?>" onclick = "$('#job<?php echo $cv->getId(); ?>').show();$('#showjob<?php echo $cv->getId(); ?>').hide();$('#hidejob<?php echo $cv->getId(); ?>').show();" style = "cursor: pointer;">+&nbsp;<?php echo $cvdata['EMPLOYERS'][$EmployerID]['NAME']?>&nbsp;(<?php echo $cv->getDateFrom()?>&nbsp;till&nbsp;<?php echo $cv->getDateTo()?>)</a>
+				<a id="hidejob<?php echo $cv->getId(); ?>" onclick = "$('#job<?php echo $cv->getId(); ?>').hide();$('#hidejob<?php echo $cv->getId(); ?>').hide();$('#showjob<?php echo $cv->getId(); ?>').show();" style = "display:none; cursor: pointer;">-&nbsp;<?php echo $cvdata['EMPLOYERS'][$EmployerID]['NAME']?>&nbsp;(<?php echo $cv->getDateFrom()?>&nbsp;till&nbsp;<?php echo $cv->getDateTo()?>)</a>
+				</td>
+				<td align= 'right'>
+				<a id="remove-<?php echo $cv->getId(); ?>"class="delete-cv">Delete This Experience</a>&nbsp;|&nbsp
+				<a id="<?php echo $cv->getId(); ?>" class="save-cv">Save This Experience</a>
+				</td>
+				</tr>
+				</table>
+				
+				<div id = "job<?php echo $cv->getId(); ?>" style="margin-left:20px; display:none;" class = "jobdetails">		
+					<a name="job<?php echo $cv->getId() ?>"></a>
+					<select id="sel-<?php echo $cv->getId() ?>" size='1'>
+					<?php foreach($cvdata['EMPLOYERS'] as $EMPLOYER):?>
+					  <option id='<?php echo $EMPLOYER['ID'];?>'  
+					  <?php if ($cv->getEmployerId() == $EMPLOYER['ID']) echo 'selected'; ?>><?php echo $EMPLOYER['NAME']; ?></option>
+					<?php endforeach; ?>
+					</select>
+			
+					</br>
+					<input type="date" name="calendar" id='calendarfrom-<?php echo $cv->getId() ?>' value="<?php echo $cv->getDateFrom()?>">&nbsp;&nbsp;&nbsp;till&nbsp;&nbsp;&nbsp;<input type="date" name="calendar" id='calendarto-<?php echo $cv->getId() ?>' value="<?php echo $cv->getDateTo()?>">
+					
+					<textarea class='cv-descr' id="cv-<?php echo $cv->getId() ?>"><?php echo $cv->getDescription(); ?></textarea>
+					<textarea class='cv-tech' id="cv-<?php echo $cv->getId() ?>"><?php echo $cv->getTechnologies(); ?></textarea>
+					<hr>
+				</div>
+			</div>
+		<?php endforeach; ?>
+	<?php endforeach; ?>
+<?php else:?>
+	No Jobs Experience
+<?php endif;?>
