@@ -22,6 +22,21 @@ class CVManagmentController extends AbstractActionController {
 			'selecteduserid' => $selectedUserId
 		));
     }
+    public function getjobsAction() 
+	{
+        $selectedUserId = (int) $this->params()->fromRoute('id', 0);
+			
+		$result = new ViewModel();
+		
+		$result->setTerminal(true);
+		$result->setVariables(array(
+			'cvdata' => $this->getCVManagmentTable()->fetchAll($selectedUserId),
+			'userdata' => $this->getUserTable()->fetchAll(),
+			'selecteduserid' => $selectedUserId
+		));
+		
+		return $result;
+    }
 
     public function addAction(){
 		$request = $this->getRequest();
@@ -34,7 +49,7 @@ class CVManagmentController extends AbstractActionController {
 			
 			$new_cv->setUserId($user_id); 
 			$new_cv->setEmployerId(1);
-			print_r($new_cv);
+		//	print_r($new_cv);
             if (!$cv_id = $this->getCVManagmentTable()->saveCVData($new_cv))
                 $response->setContent(\Zend\Json\Json::encode(array('response' => false)));
             else 

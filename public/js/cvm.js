@@ -1,3 +1,11 @@
+$(document).ready(function () 
+{
+	user_id = $("#seluser" + " option:selected").attr('id');
+	$.get("/cvmanagment/getjobs/" + user_id, function(data) {
+		$("#ajaxjobs").html(data);
+	});
+});
+
 jQuery(function($) {
 
 	$('#seluser').change(function() {
@@ -10,20 +18,28 @@ jQuery(function($) {
         var $cv = $(this);
 		
 		user_id = $("#seluser" + " option:selected").attr('id');
-		
+
         $.post("/cvmanagment/add", {
-            userid: user_id
-        },
-            function(data){
-                if(data.response == true){
-					alert(data.new_cv_id);
-                    $cv.before("<div class=\"sticky-note\"><textarea id=\"cv-"+data.new_cv_id+"\"></textarea><a href=\"#\" id=\"remove-"+data.new_cv_id+"\"class=\"delete-sticky\">X</a></div>");
-                // print success message
-                } else {
-                    // print error message
-                    console.log('could not add');
-                }
-            }, 'json');
+				userid: user_id
+			},
+			function(data){
+				if(data.response == true){
+					jQuery.ajax({
+						url:    "/cvmanagment/getjobs/" + user_id,
+						success: function(result) {
+							$("#ajaxjobs").html(result);	
+						}
+					});          
+
+				} else {
+					// print error message
+					console.log('could not add');
+				}
+			}, 'json');
+			
+		$.get("/cvmanagment/getjobs/" + user_id, function(data) {
+		$("#ajaxjobs").html(data);
+	});
     });
 
     $('#cvmanagment').on('click', 'a.delete-cv',function(event){
@@ -37,7 +53,7 @@ jQuery(function($) {
         },
         function(data){
             if(data.response == true)
-                $cv.parent().remove();
+                $cv.parent().parent().remove();
             else{
                 // print error message
                 console.log('could not remove ');

@@ -19,33 +19,45 @@
 		<?php if ($user->getId() == $selecteduserid) echo 'selected'; ?>><?php echo $user->getName(); ?></option>
     <?php endforeach; ?>
 	</select>
+	<a id = "<?php echo $selecteduserid; ?>" class="delete-user">Delete This User</a>&nbsp;|&nbsp
+	<a id = "<?php echo $selecteduserid; ?>" class="save-user">Save This User</a>
 	
 	</br>
-		<?php if ($userdata[$selecteduserid - 1]->getEmail()):?>
-			<textarea class='user-fields' id="email"><?php echo $userdata[$selecteduserid - 1]->getEmail(); ?></textarea>
-		<?php endif;?>
-		</br>
-		<?php if ($userdata[$selecteduserid - 1]->getSkype()):?>
-			<textarea class='user-fields' id="skype"><?php echo $userdata[$selecteduserid - 1]->getSkype(); ?></textarea>
-		<?php endif;?>
-		</br>
-		<?php if ($userdata[$selecteduserid - 1]->getPhone()):?>
-			<textarea class='user-fields' id="phone"><?php echo $userdata[$selecteduserid - 1]->getPhone(); ?></textarea>
-		<?php endif;?>
-		</br>
-		<?php if ($userdata[$selecteduserid - 1]->getUrl()):?>
-			<textarea class='user-fields' id="url"><?php echo $userdata[$selecteduserid - 1]->getUrl(); ?></textarea>
-		<?php endif;?>
-		</br>
-		<a id = "<?php echo $selecteduserid; ?>" class="delete-user">Delete This User</a>&nbsp;|&nbsp
-		<a id = "<?php echo $selecteduserid; ?>" class="save-user">Save This User</a>
+		<table>
+			<tr>
+				<td>
+				<b>E-mail:</b>
+				</td>
+				<td><textarea class='user-fields' id="email"><?php echo $userdata[$selecteduserid - 1]->getEmail(); ?></textarea></td>
+			</tr>
+			<tr>
+				<td>
+				<b>Skype:</b>
+				</td>
+				<td><textarea class='user-fields' id="skype"><?php echo $userdata[$selecteduserid - 1]->getSkype(); ?></textarea></td>
+			</tr>
+			<tr>
+				<td>
+				<b>Phone:</b>
+				</td>
+				<td><textarea class='user-fields' id="phone"><?php echo $userdata[$selecteduserid - 1]->getPhone(); ?></textarea></td>
+			</tr>
+			<tr>
+				<td>
+				<b>Url:</b>
+				</td>
+				<td><textarea class='user-fields' id="url"><?php echo $userdata[$selecteduserid - 1]->getUrl(); ?></textarea></td>
+			</tr>
+		</table>
 	</div>
 	</br>
 	<b style='color:blue'>JOB EXPERIENCE:</b></br></br>
-	<?php if (array_key_exists('CVDATA', $cvdata)):?>
+	<div id='ajaxjobs'>
+	<?php/* if (array_key_exists('CVDATA', $cvdata)):?>
 		<?php foreach($cvdata['CVDATA'] as $cvmanagment):?>
 			<?php foreach($cvmanagment as $cv):?>
 				<div id = "jobs" style="margin-left:20px">		
+					<a name="job<?php echo $cv->getId() ?>"></a>
 					<select id="sel-<?php echo $cv->getId() ?>" size='1'>
 					<?php foreach($cvdata['EMPLOYERS'] as $EMPLOYER):?>
 					  <option id='<?php echo $EMPLOYER['ID'];?>'  
@@ -64,6 +76,7 @@
 				</div>
 			<?php endforeach; ?>
 		<?php endforeach; ?>
-	<?php endif;?>
+	<?php endif;*/?>
+	</div>
 </div>
 <div class="clear-both"></div>
