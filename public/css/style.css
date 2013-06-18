@@ -46,14 +46,22 @@ textarea.cv-descr
 	width: 100%;
 	height: 100px;
 }
+
 textarea.cv-tech
 {
 	width: 100%;
 	height: 50px;
 }
+
 textarea.employername
 {
 	width: 30%;
+	height: 20px;
+}
+
+textarea.user-fields
+{
+	width: 100%;
 	height: 20px;
 }
 
