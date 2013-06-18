@@ -9,78 +9,76 @@ class UserController extends AbstractActionController {
 	
     public function indexAction() 
 	{
-      //  $id = (int) $this->params()->fromRoute('id', 0);
-		//echo 'asdasd: '.$id;
+        $selectedUserId = (int) $this->params()->fromRoute('id', 0);
+		
 		return new ViewModel(array(
 			'userdata' => $this->getUserTable()->fetchAll(),
-			'selecteduserid' = > $id
+			'selecteduserid' => $selectedUserId
 		));
     }
 
     public function addAction(){
-		/*$request = $this->getRequest();
+		$request = $this->getRequest();
         $response = $this->getResponse();
         if ($request->isPost()) {
-            $new_cv = new \CVManagment\Model\Entity\User();
-			$new_cv->setUserId(1); 
-			$new_cv->setEmployerId(1);
-			print_r($new_cv);
-            if (!$cv_id = $this->getUserTable()->saveCVData($new_cv))
+            $new_user = new \CVManagment\Model\Entity\User();
+			if (!$user_id = $this->getUserTable()->saveUser($new_user))
                 $response->setContent(\Zend\Json\Json::encode(array('response' => false)));
             else 
 			{
-                $response->setContent(\Zend\Json\Json::encode(array('response' => true, 'new_cv_id' => $cv_id)));
+                $response->setContent(\Zend\Json\Json::encode(array('response' => true, 'new_user_id' => $user_id)));
             }
         }
-        return $response;*/
+        return $response;
     }
 
     public function removeAction() 
 	{
-      /*  $request = $this->getRequest();
+        $request = $this->getRequest();
         $response = $this->getResponse();
         if ($request->isPost()) {
             $post_data = $request->getPost();
-            $cv_id = $post_data['id'];
-            if (!$this->getUserTable()->removeCVData($cv_id))
+            $user_id = $post_data['userid'];
+            if (!$this->getUserTable()->removeUser($user_id))
                 $response->setContent(\Zend\Json\Json::encode(array('response' => false)));
             else {
                 $response->setContent(\Zend\Json\Json::encode(array('response' => true)));
             }
         }
-        return $response;*/
+        return $response;
     }
 
     public function updateAction()
 	{
-	/*	// update post
+		// update post
         $request = $this->getRequest();
         $response = $this->getResponse();
         if ($request->isPost()) {
             $post_data = $request->getPost();
 			
-			$cv_id = $post_data['id'];
-            $employerid = $post_data['employerid'];
-            $description = $post_data['description'];
-            $technologies = $post_data['technologies'];
-            $datafrom = $post_data['datafrom'];
-            $datato = $post_data['datato'];
+			$user_id = $post_data['userid'];
+            $name = $post_data['name'];
+            $email = $post_data['email'];
+            $skype = $post_data['skype'];
+            $phone = $post_data['phone'];
+            $url = $post_data['url'];
 			
-            $cv = $this->getUserTable()->getCVData($cv_id);
-			$cv->setId($cv_id)
-					->setEmployerId($employerid)
-					->setDateFrom($datafrom)
-					->setDateTo($datato)
-					->setDescription($description)
-					->setTechnologies($technologies);
+            $userentity = $this->getUserTable()->getUser($user_id);
+			
+            $userentity->setId($user_id)
+                    ->setName($name)
+                    ->setEmail($email)
+                    ->setSkype($skype)
+                    ->setUrl($phone)
+                    ->setPhone($url);
 		
-            if (!$this->getUserTable()->saveCVData($cv))
+            if (!$this->getUserTable()->saveUser($userentity))
                 $response->setContent(\Zend\Json\Json::encode(array('response' => false)));
             else {
                 $response->setContent(\Zend\Json\Json::encode(array('response' => true)));
             }
         }
-        return $response;*/
+        return $response;
     }
 	
 	public function getUserTable() 

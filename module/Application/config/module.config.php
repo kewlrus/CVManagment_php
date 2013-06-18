@@ -42,7 +42,6 @@ return array(
 								'id'     => '[0-9]+',
                             ),
                             'defaults' => array(
-								'id'     => '1',
                             ),
                         ),
                     ),

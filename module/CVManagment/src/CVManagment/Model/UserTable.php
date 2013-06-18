@@ -58,48 +58,47 @@ class UserTable extends AbstractTableGateway {
 	
     public function getUser($id) 
 	{
-        /*$row = $this->select(array('id' => (int) $id))->current();
+        $row = $this->select(array('id' => (int) $id))->current();
+		
         if (!$row)
             return false;
 
-        $CVData = new Entity\CVManagment(array(
-					'id' => $row->id,
-                    'EmployerId' => $row->EmployerID,
-					'user_id' => $row->user_id,
-                    'DATE_FROM' => $row->DATE_FROM,
-                    'DATE_TO' => $row->DATE_TO,
-                    'DESCRIPTION' => $row->DESCRIPTION,
-                    'TECHNOLOGIES' => $row->TECHNOLOGIES,
+        $UserData = new Entity\User(array(
+					'ID' => $row->ID,
+                    'NAME' => $row->NAME,
+					'EMAIL' => $row->EMAIL,
+                    'SKYPE' => $row->SKYPE,
+                    'PHONE' => $row->PHONE,
+                    'URL' => $row->URL,
                 ));
-        return $CVData;*/
+        return $UserData;
 	}
 	
     public function saveUser(Entity\User $User) 
 	{
-     /*   $data = array(
-			'id' => $CVData->getId(),
-			'EmployerId' => $CVData->getEmployerId(),
-			'user_id' => $CVData->getUserId(),
-			'DATE_FROM' => $CVData->getDateFrom(),
-			'DATE_TO' => $CVData->getDateTo(),
-			'DESCRIPTION' => $CVData->getDescription(),
-			'TECHNOLOGIES' => $CVData->getTechnologies(),
+       $data = array(
+			'ID' => $User->getId(),
+			'NAME' => $User->getName(),
+			'EMAIL' => $User->getEmail(),
+			'SKYPE' => $User->getSkype(),
+			'PHONE' => $User->getPhone(),
+			'URL' => $User->getUrl(),
         );
 
-        $id = (int) $CVData->getId();
+        $id = (int) $User->getId();
 
         if ($id == 0) {
             if (!$this->insert($data))
                 return false;
             return $this->getLastInsertValue();
         }
-        elseif ($this->getCVData($id)) {
+        elseif ($this->getUser($id)) {
             if (!$this->update($data, array('id' => $id)))
                 return false;
             return $id;
         }
         else
-            return false;*/
+            return false;
 	}
 	
     public function removeUser($id) 

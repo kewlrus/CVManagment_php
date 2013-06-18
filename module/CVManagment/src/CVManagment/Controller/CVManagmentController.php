@@ -11,10 +11,6 @@ class CVManagmentController extends AbstractActionController {
     public function indexAction() 
 	{
         $selectedUserId = (int) $this->params()->fromRoute('id', 0);
-		//echo 'asdasd222: '.$selectedUserId;
-		
-		//if ($selectedUserId == 0)
-		//	$selectedUserId = 1;
 			
 		return new ViewModel(array(
 			'cvdata' => $this->getCVManagmentTable()->fetchAll($selectedUserId),

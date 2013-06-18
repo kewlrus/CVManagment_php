@@ -16,37 +16,43 @@
 	<select id="seluser" size='1'>
 	<?php foreach($userdata as $user):?>
 		<option id='<?php echo $user->getId();?>'
-		<?php if ($user->getId() == $selecteduserid) echo 'selected'; ?>><?php echo $user->getName(); ?></option>
+		<?php if ($user->getId() == $selecteduserid) {echo 'selected'; $cur_user = $user;} ?>><?php echo $user->getName(); ?></option>
     <?php endforeach; ?>
 	</select>
 	<a id = "<?php echo $selecteduserid; ?>" class="delete-user">Delete This User</a>&nbsp;|&nbsp
-	<a id = "<?php echo $selecteduserid; ?>" class="save-user">Save This User</a>
-	
+	<a id = "<?php echo $selecteduserid; ?>" class="save-user">Save This User</a>&nbsp;|&nbsp
+	<a class="add-user">Add New User</a>
 	</br>
 		<table>
 			<tr>
 				<td>
+				<b>Name:</b>
+				</td>
+				<td><textarea class='user-fields' id="name"><?php echo $cur_user->getName(); ?></textarea></td>
+			</tr>
+			<tr>
+				<td>
 				<b>E-mail:</b>
 				</td>
-				<td><textarea class='user-fields' id="email"><?php echo $userdata[$selecteduserid - 1]->getEmail(); ?></textarea></td>
+				<td><textarea class='user-fields' id="email"><?php echo $cur_user->getEmail(); ?></textarea></td>
 			</tr>
 			<tr>
 				<td>
 				<b>Skype:</b>
 				</td>
-				<td><textarea class='user-fields' id="skype"><?php echo $userdata[$selecteduserid - 1]->getSkype(); ?></textarea></td>
+				<td><textarea class='user-fields' id="skype"><?php echo $cur_user->getSkype(); ?></textarea></td>
 			</tr>
 			<tr>
 				<td>
 				<b>Phone:</b>
 				</td>
-				<td><textarea class='user-fields' id="phone"><?php echo $userdata[$selecteduserid - 1]->getPhone(); ?></textarea></td>
+				<td><textarea class='user-fields' id="phone"><?php echo $cur_user->getPhone(); ?></textarea></td>
 			</tr>
 			<tr>
 				<td>
 				<b>Url:</b>
 				</td>
-				<td><textarea class='user-fields' id="url"><?php echo $userdata[$selecteduserid - 1]->getUrl(); ?></textarea></td>
+				<td><textarea class='user-fields' id="url"><?php echo $cur_user->getUrl(); ?></textarea></td>
 			</tr>
 		</table>
 	</div>

@@ -7,12 +7,77 @@ $(document).ready(function ()
 });
 
 jQuery(function($) {
-
+	//Users operations
 	$('#seluser').change(function() {
 		user_id = $("#seluser" + " option:selected").attr('id');
 		window.location.href = "/cvmanagment/index/" + user_id;
 	});
+	
+    $("a.add-user").on('click', function(event){
+		event.preventDefault();
+		
+        $.post("/user/add/", null,
+			function(data){
+				if(data.response == true){
+					window.location.href = "/cvmanagment/index/" + data.new_user_id;   
+				} else {
+					// print error message
+					console.log('could not add');
+				}
+			}, 'json');
+	});
+		
+    $("a.save-user").on('click', function(event){
+	    var cv = $(this);
+        user_id = cv.attr('id'),
 
+		_name = $("textarea#name").val();
+		_email = $("textarea#email").val();
+		_skype = $("textarea#skype").val();
+		_phone = $("textarea#phone").val();
+		_url = $("textarea#url").val();
+
+        $.post("/user/update/", {
+            userid: user_id,
+            name: _name,
+            email: _email,
+            skype: _skype,
+            phone: _phone,
+            url: _url,
+        },function(data){
+            if(data.response == false){
+                // print error message
+                cv.html('Save This User: Could not update!');
+            }
+			else
+			{
+				$("#seluser" + " option:selected").html(_name);
+				cv.html('Save This User: Saved!');
+			}
+        }, 'json');
+
+	});
+	
+    $("a.delete-user").on('click', function(event){
+		event.preventDefault();
+        //var $cv = $(this);
+        var remove_id = $(this).attr('id');
+
+        $.post("/user/remove/", {
+            userid: remove_id
+        },
+        function(data){
+            if(data.response == true)
+				window.location.href = "/";
+            else{
+                // print error message
+                console.log('could not remove ');
+            }
+        }, 'json');
+	});
+	
+
+	// Jobs experience operations
     $("#create").on('click', function(event){
         event.preventDefault();
         var $cv = $(this);
@@ -38,8 +103,8 @@ jQuery(function($) {
 			}, 'json');
 			
 		$.get("/cvmanagment/getjobs/" + user_id, function(data) {
-		$("#ajaxjobs").html(data);
-	});
+			$("#ajaxjobs").html(data);
+		});
     });
 
     $('#cvmanagment').on('click', 'a.delete-cv',function(event){
