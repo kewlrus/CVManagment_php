@@ -1,0 +1,43 @@
+<?php
+//echo "GETPE";
+//echo "<pre>";
+//print_r($personalexpdata);
+//echo $selecteduserid;
+//echo "</pre>";
+?>
+
+<?php 
+//echo "<pre>";
+//print_r($cvdata);
+//echo "</pre>";
+if (!empty($personalexpdata)):?>
+	<?php foreach($personalexpdata as $pe):?>
+			<div id = 'jobcontainer'>
+				<table style="width:100%"> 
+				<tr>
+				<td style="width:50%;">
+				<a id="showjob<?php echo $pe->getId(); ?>" onclick = "$('#pe<?php echo $pe->getId(); ?>').show();$('#showjob<?php echo $pe->getId(); ?>').hide();$('#hidejob<?php echo $pe->getId(); ?>').show();" style = "cursor: pointer;">+&nbsp;(<?php echo $pe->getDateFrom()?>&nbsp;till&nbsp;<?php echo $pe->getDateTo()?>)</a>
+				<a id="hidejob<?php echo $pe->getId(); ?>" onclick = "$('#pe<?php echo $pe->getId(); ?>').hide();$('#hidejob<?php echo $pe->getId(); ?>').hide();$('#showjob<?php echo $pe->getId(); ?>').show();" style = "display:none; cursor: pointer;">-&nbsp;(<?php echo $pe->getDateFrom()?>&nbsp;till&nbsp;<?php echo $pe->getDateTo()?>)</a>
+				</td>
+				<td align= 'right'>
+				<a id="remove-<?php echo $pe->getId(); ?>"class="delete-pe">Delete This Experience</a>&nbsp;|&nbsp
+				<a id="<?php echo $pe->getId(); ?>" class="save-pe">Save This Experience</a>
+				</td>
+				</tr>
+				</table>
+				
+				<div id = "pe<?php echo $pe->getId(); ?>" style="margin-left:20px; display:none;" class = "jobdetails">		
+					<a name="pe<?php echo $pe->getId() ?>"></a>
+			
+					</br>
+					<input type="date" name="calendar" id='calendarfrom-<?php echo $pe->getId() ?>' value="<?php echo $pe->getDateFrom()?>">&nbsp;&nbsp;&nbsp;till&nbsp;&nbsp;&nbsp;<input type="date" name="calendar" id='calendarto-<?php echo $pe->getId() ?>' value="<?php echo $pe->getDateTo()?>">
+					
+					<textarea class='pe-descr' id="pe-<?php echo $pe->getId() ?>"><?php echo $pe->getDescription(); ?></textarea>
+					<textarea class='pe-tech' id="pe-<?php echo $pe->getId() ?>"><?php echo $pe->getTechnologies(); ?></textarea>
+					<hr>
+				</div>
+			</div>
+	<?php endforeach; ?>
+<?php else:?>
+	No Personal Experience
+<?php endif;?>

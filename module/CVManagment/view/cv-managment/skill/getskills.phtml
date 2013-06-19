@@ -1,0 +1,18 @@
+<?php
+//echo "GETSKILLS";
+//echo "<pre>";
+//print_r($skilldata);
+//echo $selecteduserid;
+//echo "</pre>";
+?>
+<?php if (!empty($skilldata)):?>
+		<ul>
+	<?php foreach($skilldata as $sk):?>
+		<li>
+			<?php echo $sk->getDescription();  ?>
+		</li>
+	<?php endforeach; ?>
+	</ul>
+<?php else:?>
+	No Skills
+<?php endif;?>
