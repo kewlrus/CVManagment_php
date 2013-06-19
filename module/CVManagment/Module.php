@@ -3,6 +3,8 @@ namespace CVManagment;
 
 use CVManagment\Model\CVManagmentTable;
 use CVManagment\Model\UserTable;
+use CVManagment\Model\PersonalExpTable;
+use CVManagment\Model\SkillTable;
 
 class Module
 {
@@ -37,6 +39,16 @@ class Module
                 'CVManagment\Model\UserTable' => function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table = new UserTable($dbAdapter);
+                    return $table;
+                },
+                'CVManagment\Model\SkillTable' => function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new SkillTable($dbAdapter);
+                    return $table;
+                },
+                'CVManagment\Model\PersonalExpTable' => function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new PersonalExpTable($dbAdapter);
                     return $table;
                 },
             ),
